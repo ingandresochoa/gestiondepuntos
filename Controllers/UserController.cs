@@ -46,20 +46,6 @@ namespace GestionPuntosAPI.Controllers
             return Ok(new { message = "Usuario registrado exitosamente." });
         }
 
-        // POST: api/User/login
-        [Authorize]
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserDTO dto)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
-            if (user == null || user.PasswordHash != dto.Password)
-            {
-                return Unauthorized("Credenciales incorrectas.");
-            }
-
-            return Ok(new { message = "Inicio de sesión exitoso.", user.Id, user.Email, user.Points });
-        }
-
         // GET: api/User/{id}
         [Authorize]
         [HttpGet("{id}")]
